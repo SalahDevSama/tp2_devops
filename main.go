@@ -73,6 +73,11 @@ func HealthHandler(rw http.ResponseWriter, req *http.Request) {
 	}
 }
 
+// VersionHandler : petit changement ajouté pour l'exercice 1 du TP
+func VersionHandler(rw http.ResponseWriter, req *http.Request) {
+	rw.Write([]byte("guestbook v0.1.0 - TP2 DevOps\n"))
+}
+
 func HandleError(result interface{}, err error) (r interface{}) {
 	if err != nil {
 		panic(err)
@@ -92,6 +97,7 @@ func main() {
 	r.Path("/info").Methods("GET").HandlerFunc(InfoHandler)
 	r.Path("/env").Methods("GET").HandlerFunc(EnvHandler)
 	r.Path("/healthz").Methods("GET").HandlerFunc(HealthHandler)
+	r.Path("/version").Methods("GET").HandlerFunc(VersionHandler)
 
 	n := negroni.Classic()
 	n.UseHandler(r)
