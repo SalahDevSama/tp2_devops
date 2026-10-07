@@ -44,3 +44,34 @@ Aussi le build multi-étapes sépare l'environnement de compilation de l'environ
 d'attaque (pas de shell ni d'outils dans l'image finale)
 
 docker compose est la version déclarative de docker build et docker run, la configuration est versionnée avec le code
+
+## 2. Ajouter une base de données à votre service
+
+Objectif : brancher un Redis au guestbook via docker compose pour que les
+messages soient enregistrés
+
+### Commandes utilisées
+
+```bash
+curl localhost:3000/healthz
+
+docker compose up
+docker compose down
+```
+
+Modification du docker-compose.yaml, ajout d'un service redis avec l'image publique redis:7
+et le port 6379, et la variable d'environnement REDIS_HOST=redis sur le service guestbook
+
+### Problème rencontré et pourquoi il est survenu
+
+problème dial tcp :6379: connection refused sur /healthz (hôte vide car REDIS_HOST non défini, et aucun Redis)
+
+### Solution appliquée et pourquoi cette solution fonctionne
+
+ajouter un service redis dans le compose et passer REDIS_HOST=redis au guestbook, cette solution permet que dans
+docker compose chaque service est joignable par son nom (redis devient le nom d'hôte), main.go construit
+l'adresse redis:6379 et les messages sont stockés dans Redis
+
+### Ce que j'ai appris
+
+l'application se configure avec des variables d'environnement, ce qui permet de changer l'hôte sans toucher au code
