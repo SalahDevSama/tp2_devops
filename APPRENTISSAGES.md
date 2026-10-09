@@ -75,3 +75,9 @@ l'adresse redis:6379 et les messages sont stockés dans Redis
 ### Ce que j'ai appris
 
 l'application se configure avec des variables d'environnement, ce qui permet de changer l'hôte sans toucher au code
+
+## 3. Ajouter de la persistance et du hot-reloading au guestbook
+
+Objectif : garder les messages Redis après un docker compose down, et voir les
+modifications de main.go prises en compte sans reconstruire l'image
+

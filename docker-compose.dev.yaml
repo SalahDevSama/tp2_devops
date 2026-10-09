@@ -1,11 +1,15 @@
 services:
   guestbook:
-    build: .
-    image: guestbook:v0.1.0
+    build:
+      context: .
+      target: dev
+    image: guestbook:dev
     ports:
       - "3000:3000"
     environment:
       - REDIS_HOST=redis
+    volumes:
+      - .:/app
     depends_on:
       - redis
   redis:

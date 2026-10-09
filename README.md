@@ -210,8 +210,8 @@ Nous avons simplement besoin d'ajouter un nouveau service dans notre fichier doc
 
 ### Vérifications
 
-- [ ] L'application enregistre effectivement les messages
-- [ ] (Optionnel) Si vous exécutez `docker compose down`, vous ne perdez pas les données quand vous relancez l'application.
+- [x] L'application enregistre effectivement les messages
+- [x] (Optionnel) Si vous exécutez `docker compose down`, vous ne perdez pas les données quand vous relancez l'application.
 
 ## 3. Ajouter de la persistance et du hot-reloading au guestbook
 
@@ -266,10 +266,10 @@ Maintenant que votre application fonctionne avec une base de données, vous voul
 
 ### Vérifications
 
-- [ ] Les données Redis persistent après un `docker compose down` et `up`
-- [ ] Les modifications du code Go sont automatiquement rechargées sans reconstruire l'image
-- [ ] L'application reste accessible sur `localhost:3000`
-- [ ] Les logs montrent qu'Air détecte et recompile lors des changements de fichiers
+- [x] Les données Redis persistent après un `docker compose down` et `up`
+- [x] Les modifications du code Go sont automatiquement rechargées sans reconstruire l'image
+- [x] L'application reste accessible sur `localhost:3000`
+- [x] Les logs montrent qu'Air détecte et recompile lors des changements de fichiers
 
 ## 4. Créer des stacks avec du hot-reloading
 
