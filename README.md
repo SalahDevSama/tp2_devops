@@ -381,10 +381,10 @@ JupyterLab est un environnement de développement interactif pour les notebooks,
 
 ### Vérifications
 
-- [ ] JupyterLab est accessible sur `localhost:8888`
-- [ ] Les notebooks sont persistés entre les redémarrages
-- [ ] Les datasets sont accessibles depuis les notebooks
-- [ ] L'installation de nouveaux packages est persistée
+- [x] JupyterLab est accessible sur `localhost:8888`
+- [x] Les notebooks sont persistés entre les redémarrages
+- [x] Les datasets sont accessibles depuis les notebooks
+- [x] L'installation de nouveaux packages est persistée
 
 ## 7. Ouvrir le guestbook à la classe
 

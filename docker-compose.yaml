@@ -14,6 +14,22 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+  jupyter:
+    image: quay.io/jupyter/datascience-notebook:python-3.12
+    ports:
+      - "8888:8888"
+    volumes:
+      - jupyter_notebooks:/home/jovyan/work
+      - jupyter_data:/home/jovyan/.local
+      - ./datasets:/home/jovyan/datasets
+      - ./examples:/home/jovyan/work/examples
+    user: root
+    environment:
+      - JUPYTER_TOKEN=monmotdepasse
+      - CHOWN_EXTRA=/home/jovyan/.local
+      - CHOWN_EXTRA_OPTS=-R
 
 volumes:
   redis_data:
+  jupyter_notebooks:
+  jupyter_data:

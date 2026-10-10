@@ -81,3 +81,22 @@ l'application se configure avec des variables d'environnement, ce qui permet de 
 Objectif : garder les messages Redis après un docker compose down, et voir les
 modifications de main.go prises en compte sans reconstruire l'image
 
+## 6. Déployer JupyterLab en local et rendre les notebooks persistants
+
+Objectif : lancer JupyterLab avec docker compose, y accéder avec un token, et garder
+les notebooks et les packages installés après un redémarrage
+
+### Problème rencontré et pourquoi il est survenu
+
+au premier démarrage le conteneur jupyter plante avec PermissionError: Permission denied: /home/jovyan/.local share.
+Le dossier .local n'existe pas dans l'image, donc Docker crée le point de montage du volume en root, et jupyter
+qui tourne avec l'utilisateur jovyan (uid 1000) ne peut pas écrire dedans. Le volume work n'a pas ce problème car le dossier existe déjà dans l'image avec le bon propriétaire, Docker copie ses permissions dans le volume
+
+### Solution appliquée et pourquoi cette solution fonctionne
+
+lancer le conteneur avec user: root et les variables CHOWN_EXTRA=/home/jovyan/.local et CHOWN_EXTRA_OPTS=-R, ca fonctionne car le script de démarrage de l'image (start.sh) tourne alors en root, change le propriétaire du dossier pour jovyan puis relance jupyter avec l'utilisateur jovyan, le serveur ne tourne donc pas en root.
+Après un down puis up, le notebook créé, le dataset trees.csv et le package cowsay (installé dans .local) sont toujours là
+
+### Ce que j'ai appris
+
+qu'un volume nommé vide hérite du contenu et des permissions du dossier de l'image s'il existe, sinon il est créé en root.
